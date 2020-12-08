@@ -7,7 +7,7 @@ public class IdGenerator {
 
     private int  id;
 
-    private IdGenerator(){
+    public IdGenerator(){
         id = 1;
     }
 
