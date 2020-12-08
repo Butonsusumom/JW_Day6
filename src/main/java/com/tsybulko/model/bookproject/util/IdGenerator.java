@@ -1,11 +1,11 @@
-package util;
+package com.tsybulko.model.bookproject.util;
 
 
 public class IdGenerator {
 
     private static final IdGenerator instance = new IdGenerator();
 
-    private long id;
+    private int  id;
 
     private IdGenerator(){
         id = 1;
@@ -15,7 +15,7 @@ public class IdGenerator {
         return instance;
     }
 
-    public long generateNewId(){
+    public int generateNewId(){
         return id++;
     }
 }

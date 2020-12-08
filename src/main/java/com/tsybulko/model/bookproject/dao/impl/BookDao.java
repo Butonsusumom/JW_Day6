@@ -4,6 +4,7 @@ import com.tsybulko.model.bookproject.dao.IBookDao;
 import com.tsybulko.model.bookproject.entity.Book;
 import com.tsybulko.model.bookproject.entity.BookWarehouse;
 
+import com.tsybulko.model.bookproject.service.BookComparator;
 import exception.DaoException;
 
 import java.util.LinkedList;
@@ -63,10 +64,6 @@ public class BookDao implements IBookDao {
         return searchedBook;
     }
 
-    @Override
-    public LinkedList<Book> findByAuthor(String author) {
-        return null;
-    }
 
     @Override
     public LinkedList<Book> findByTitle(String title) {
@@ -121,14 +118,18 @@ public class BookDao implements IBookDao {
         return resultList;
     }
 
-
+    @Override
+    public LinkedList<Book> findAll(){
+        BookWarehouse warehouse = BookWarehouse.getInstance();
+        return  warehouse.all();
+    }
 
     @Override
     public LinkedList<Book> sortById() {
         BookWarehouse warehouse = BookWarehouse.getInstance();
         LinkedList<Book> allBooks = warehouse.all();
         LinkedList<Book> sortedList = new LinkedList<>(allBooks);
-        sortedList.sort(new Book.BookIdComparator());
+        sortedList.sort(new BookComparator.BookIdComparator());
         return sortedList;
     }
 
@@ -137,7 +138,7 @@ public class BookDao implements IBookDao {
         BookWarehouse warehouse = BookWarehouse.getInstance();
         LinkedList<Book> allBooks = warehouse.all();
         LinkedList<Book> sortedList = new LinkedList<>(allBooks);
-        sortedList.sort(new Book.BookTitleComparator());
+        sortedList.sort(new BookComparator.BookTitleComparator());
         return sortedList;
     }
 
@@ -146,7 +147,7 @@ public class BookDao implements IBookDao {
         BookWarehouse warehouse = BookWarehouse.getInstance();
         LinkedList<Book> allBooks = warehouse.all();
         LinkedList<Book> sortedList = new LinkedList<>(allBooks);
-        sortedList.sort(new Book.BookYearComparator());
+        sortedList.sort(new BookComparator.BookYearComparator());
         return sortedList;
     }
 
@@ -155,7 +156,7 @@ public class BookDao implements IBookDao {
         BookWarehouse warehouse = BookWarehouse.getInstance();
         LinkedList<Book> allBooks = warehouse.all();
         LinkedList<Book> sortedList = new LinkedList<>(allBooks);
-        sortedList.sort(new Book.BookPagesComparator());
+        sortedList.sort(new BookComparator.BookPagesComparator());
         return sortedList;
     }
 
@@ -164,7 +165,7 @@ public class BookDao implements IBookDao {
         BookWarehouse warehouse = BookWarehouse.getInstance();
         LinkedList<Book> allBooks = warehouse.all();
         LinkedList<Book> sortedList = new LinkedList<>(allBooks);
-        sortedList.sort(new Book.BookPublishingHouseComparator());
+        sortedList.sort(new BookComparator.BookPublishingHouseComparator());
         return sortedList;
     }
 }

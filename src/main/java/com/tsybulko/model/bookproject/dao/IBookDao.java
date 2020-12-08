@@ -14,7 +14,7 @@ public interface IBookDao {
 
     LinkedList<Book> findByTitle(String title);
 
-    LinkedList<Book> findByAuthor(String author);
+    public LinkedList<Book> findAll();
 
     LinkedList<Book> findByYear(String year);
 

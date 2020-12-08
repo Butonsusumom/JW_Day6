@@ -28,7 +28,7 @@ public class BookService {
             }
         }
         try {
-            dao.add(book);
+            dao.addBook(book);
 
         } catch (DaoException exception) {
             throw new exception.ServiceException(exception.getMessage());
@@ -36,44 +36,22 @@ public class BookService {
     }
 
 
-    public void removeFromDaoById(long id) throws exception.ServiceException {
+    public void removeFromDaoById(String id) throws exception.ServiceException {
         try {
-            dao.removeById(id);
+            LinkedList<Book> book = dao.findById(id);
+            dao.removeBook(book.get(0));
         } catch (DaoException exception) {
             throw new exception.ServiceException(exception);
         }
     }
 
-
-    public void removeFromDaoByIndex(int index) throws exception.ServiceException {
-        try {
-            dao.removeByIndex(index);
-        } catch (DaoException exception) {
-            throw new exception.ServiceException(exception);
-        }
-    }
-
-
-    public void changeBookLabelInDao(long id, String newLabel) throws exception.ServiceException {
-        if (newLabel == null) {
-            throw new exception.ServiceException("New label was null");
-        }
-        if (!BookValidator.validateTitle(newLabel)) {
-            throw new exception.ServiceException("Invalid book label");
-        }
-        try {
-            dao.changeBookLabel(id, newLabel);
-        } catch (DaoException exception) {
-            throw new exception.ServiceException(exception.getMessage());
-        }
-    }
 
     public LinkedList<Book> findAllInDao() {
         return dao.findAll();
     }
 
 
-    public LinkedList<Book> findByIndex(String index) {
+    public LinkedList<Book> findById(String index) {
         LinkedList<Book> result;
         result = dao.findById(index);
         return result;
