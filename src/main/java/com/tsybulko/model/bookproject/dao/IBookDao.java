@@ -1,34 +1,34 @@
-package com.tsybulko.model.dao;
+package com.tsybulko.model.bookproject.dao;
 
-import com.tsybulko.model.entity.Book;
+import com.tsybulko.model.bookproject.entity.Book;
 import exception.DaoException;
 
-import java.util.List;
+import java.util.LinkedList;
 
 public interface IBookDao {
     void addBook(Book book) throws DaoException;
 
-    void removeBook(Book book) throws BookException;
+    void removeBook(Book book) throws DaoException;
 
-    List<Book> findById(String id);
+    LinkedList<Book> findById(String id);
 
-    List<Book> findByTitle(String title);
+    LinkedList<Book> findByTitle(String title);
 
-    List<Book> findByAuthor(String author);
+    LinkedList<Book> findByAuthor(String author);
 
-    List<Book> findByYear(String year);
+    LinkedList<Book> findByYear(String year);
 
-    List<Book> findByPages(String pages);
+    LinkedList<Book> findByPages(String pages);
 
-    List<Book> findByPublishingHouse(String publishingHouse);
+    LinkedList<Book> findByPublishingHouse(String publishingHouse);
 
-    List<Book> sortById();
+    LinkedList<Book> sortById();
 
-    List<Book> sortByTitle();
+    LinkedList<Book> sortByTitle();
 
-    List<Book> sortByYear();
+    LinkedList<Book> sortByYear();
 
-    List<Book> sortByPages();
+    LinkedList<Book> sortByPages();
 
-    List<Book> sortByPublishingHouse();
+    LinkedList<Book> sortByPublishingHouse();
 }

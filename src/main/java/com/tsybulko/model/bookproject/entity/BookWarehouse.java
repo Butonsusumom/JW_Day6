@@ -1,12 +1,14 @@
-package com.tsybulko.model.entity;
+package com.tsybulko.model.bookproject.entity;
 
 import java.util.LinkedList;
-import java.util.List;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.Objects;
 
 public class BookWarehouse {
     private static BookWarehouse bookWarehouseInstance;
     private LinkedList<Book> books;
+    private static int MAX = 200;
 
     private BookWarehouse() {
         books = new LinkedList<>();
@@ -17,6 +19,30 @@ public class BookWarehouse {
             bookWarehouseInstance = new BookWarehouse();
         }
         return bookWarehouseInstance;
+    }
+
+    public void add(Book book) {
+        books.add(book);
+    }
+
+    public void remove(Book book) {
+        books.remove(book);
+    }
+
+    public boolean isFull() {
+        return books.size() >= MAX;
+    }
+
+    public void clean() {
+        books = new LinkedList<Book>();
+    }
+
+    public int indexOf(Book book) {
+        return books.indexOf(book);
+    }
+
+    public LinkedList<Book> all() {
+        return books;
     }
 
     @Override

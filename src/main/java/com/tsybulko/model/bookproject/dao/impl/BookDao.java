@@ -1,18 +1,19 @@
-package com.tsybulko.model.dao.impl;
+package com.tsybulko.model.bookproject.dao.impl;
 
-import com.tsybulko.model.dao.IBookDao;
-import com.tsybulko.model.entity.Book;
-import com.tsybulko.model.entity.BookWarehouse;
+import com.tsybulko.model.bookproject.dao.IBookDao;
+import com.tsybulko.model.bookproject.entity.Book;
+import com.tsybulko.model.bookproject.entity.BookWarehouse;
+
 import exception.DaoException;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
+
 
 public class BookDao implements IBookDao {
     @Override
     public void addBook(Book book) throws DaoException {
         BookWarehouse warehouse = BookWarehouse.getInstance();
-        List<Book> allBooks = warehouse.all();
+        LinkedList<Book> allBooks = warehouse.all();
         if (allBooks.contains(book)) {
             throw new DaoException("Such book is already exists");
         }
@@ -26,7 +27,7 @@ public class BookDao implements IBookDao {
     public void removeBook(Book removingBook)
             throws DaoException {
         BookWarehouse warehouse = BookWarehouse.getInstance();
-        List<Book> allBooks = new ArrayList<Book>(warehouse.all());
+        LinkedList<Book> allBooks = new LinkedList<Book>(warehouse.all());
         boolean result = false;
         for (Book book : allBooks) {
             if (isSimilar(book, removingBook)) {
@@ -49,10 +50,10 @@ public class BookDao implements IBookDao {
     }
 
     @Override
-    public List<Book> findById(String id) {
+    public LinkedList<Book> findById(String id) {
         BookWarehouse warehouse = BookWarehouse.getInstance();
-        List<Book> allBooks = warehouse.all();
-        List<Book> searchedBook = new ArrayList<>();
+        LinkedList<Book> allBooks = warehouse.all();
+        LinkedList<Book> searchedBook = new LinkedList<>();
         for (Book book : allBooks) {
             if (book.getId().equals(id)) {
                 searchedBook.add(book);
@@ -63,10 +64,15 @@ public class BookDao implements IBookDao {
     }
 
     @Override
-    public List<Book> findBooksByTitle(String title) {
+    public LinkedList<Book> findByAuthor(String author) {
+        return null;
+    }
+
+    @Override
+    public LinkedList<Book> findByTitle(String title) {
         BookWarehouse warehouse = BookWarehouse.getInstance();
-        List<Book> allBooks = warehouse.findAll();
-        List<Book> resultList = new ArrayList<>();
+        LinkedList<Book> allBooks = warehouse.all();
+        LinkedList<Book> resultList = new LinkedList<>();
         for (Book book : allBooks) {
             if (book.getTitle().equals(title)) {
                 resultList.add(book);
@@ -75,24 +81,12 @@ public class BookDao implements IBookDao {
         return resultList;
     }
 
-    @Override
-    public List<Book> findBooksByAuthor(String author) {
-        BookWarehouse warehouse = BookWarehouse.getInstance();
-        List<Book> allBooks = warehouse.findAll();
-        List<Book> resultList = new ArrayList<>();
-        for (Book book : allBooks) {
-            if (book.getAuthors().contains(author)) {
-                resultList.add(book);
-            }
-        }
-        return resultList;
-    }
 
     @Override
-    public List<Book> findByYear(String year) {
+    public  LinkedList<Book> findByYear(String year) {
         BookWarehouse warehouse = BookWarehouse.getInstance();
-        List<Book> allBooks = warehouse.findAll();
-        List<Book> resultList = new ArrayList<>();
+        LinkedList<Book> allBooks = warehouse.all();
+        LinkedList<Book> resultList = new LinkedList<>();
         for (Book book : allBooks) {
             if (String.valueOf(book.getYear()).equals(year)) {
                 resultList.add(book);
@@ -102,10 +96,10 @@ public class BookDao implements IBookDao {
     }
 
     @Override
-    public List<Book> findByPages(String pages) {
+    public LinkedList<Book> findByPages(String pages) {
         BookWarehouse warehouse = BookWarehouse.getInstance();
-        List<Book> allBooks = warehouse.findAll();
-        List<Book> resultList = new ArrayList<>();
+        LinkedList<Book> allBooks = warehouse.all();
+        LinkedList<Book> resultList = new LinkedList<>();
         for (Book book : allBooks) {
             if (String.valueOf(book.getPages()).equals(pages)) {
                 resultList.add(book);
@@ -115,10 +109,10 @@ public class BookDao implements IBookDao {
     }
 
     @Override
-    public List<Book> findByPublishingHouse(String publishingHouse) {
+    public LinkedList<Book> findByPublishingHouse(String publishingHouse) {
         BookWarehouse warehouse = BookWarehouse.getInstance();
-        List<Book> allBooks = warehouse.all();
-        List<Book> resultList = new ArrayList<>();
+        LinkedList<Book> allBooks = warehouse.all();
+        LinkedList<Book> resultList = new LinkedList<>();
         for (Book book : allBooks) {
             if (book.getPublishingHouse().equals(publishingHouse)) {
                 resultList.add(book);
@@ -127,47 +121,49 @@ public class BookDao implements IBookDao {
         return resultList;
     }
 
+
+
     @Override
-    public List<Book> sortById() {
+    public LinkedList<Book> sortById() {
         BookWarehouse warehouse = BookWarehouse.getInstance();
-        List<Book> allBooks = warehouse.findAll();
-        List<Book> sortedList = new ArrayList<>(allBooks);
+        LinkedList<Book> allBooks = warehouse.all();
+        LinkedList<Book> sortedList = new LinkedList<>(allBooks);
         sortedList.sort(new Book.BookIdComparator());
         return sortedList;
     }
 
     @Override
-    public List<Book> sortByTitle() {
+    public LinkedList<Book> sortByTitle() {
         BookWarehouse warehouse = BookWarehouse.getInstance();
-        List<Book> allBooks = warehouse.findAll();
-        List<Book> sortedList = new ArrayList<>(allBooks);
+        LinkedList<Book> allBooks = warehouse.all();
+        LinkedList<Book> sortedList = new LinkedList<>(allBooks);
         sortedList.sort(new Book.BookTitleComparator());
         return sortedList;
     }
 
     @Override
-    public List<Book> sortByYear() {
+    public LinkedList<Book> sortByYear() {
         BookWarehouse warehouse = BookWarehouse.getInstance();
-        List<Book> allBooks = warehouse.all();
-        List<Book> sortedList = new ArrayList<>(allBooks);
+        LinkedList<Book> allBooks = warehouse.all();
+        LinkedList<Book> sortedList = new LinkedList<>(allBooks);
         sortedList.sort(new Book.BookYearComparator());
         return sortedList;
     }
 
     @Override
-    public List<Book> sortByPages() {
+    public LinkedList<Book> sortByPages() {
         BookWarehouse warehouse = BookWarehouse.getInstance();
-        List<Book> allBooks = warehouse.all();
-        List<Book> sortedList = new ArrayList<>(allBooks);
+        LinkedList<Book> allBooks = warehouse.all();
+        LinkedList<Book> sortedList = new LinkedList<>(allBooks);
         sortedList.sort(new Book.BookPagesComparator());
         return sortedList;
     }
 
     @Override
-    public List<Book> sortByPublishingHouse() {
+    public LinkedList<Book> sortByPublishingHouse() {
         BookWarehouse warehouse = BookWarehouse.getInstance();
-        List<Book> allBooks = warehouse.all();
-        List<Book> sortedList = new ArrayList<>(allBooks);
+        LinkedList<Book> allBooks = warehouse.all();
+        LinkedList<Book> sortedList = new LinkedList<>(allBooks);
         sortedList.sort(new Book.BookPublishingHouseComparator());
         return sortedList;
     }

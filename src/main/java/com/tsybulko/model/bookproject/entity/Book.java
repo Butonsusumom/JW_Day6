@@ -1,15 +1,13 @@
-package com.tsybulko.model.entity;
+package com.tsybulko.model.bookproject.entity;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.Objects;
 
 
 public class Book {
     private String id;
     private String title;
-    private ArrayList<String> authors;
+    private LinkedList<String> authors;
     private int year;
     private int pages;
     private String publishingHouse;
@@ -17,7 +15,7 @@ public class Book {
     public Book() {
     }
 
-    public Book(String id, String title, ArrayList<String> authors, int year, int pages, String publishingHouse) {
+    public Book(String id, String title, LinkedList<String> authors, int year, int pages, String publishingHouse) {
         this.id = id;
         this.title = title;
         this.authors = authors;
@@ -42,11 +40,11 @@ public class Book {
         this.title = title;
     }
 
-    public ArrayList<String> getAuthors() {
+    public LinkedList<String> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(ArrayList<String> authors) {
+    public void setAuthors(LinkedList<String> authors) {
         this.authors = authors;
     }
 
